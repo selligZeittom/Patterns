@@ -1,17 +1,45 @@
-/*
- * factory.h
- *
- *  Created on: 27 mars 2019
- *      Author: Gilles Mottiez
- */
+#ifndef FACTORY_H
+#define FACTORY_H
 
-#ifndef FACTORY_H_
-#define FACTORY_H_
+//
+// What is seen only by the C++ compiler
+//
+#ifdef __cplusplus
 
-class Factory {
+#include "buttoneventslogger.h"
+#include "mdw/button/buttoneventshandler.h"
+#include "board/buttonscontroller.h"
+
+namespace app
+{
+
+class Factory
+{
 public:
-	Factory();
-	virtual ~Factory();
+    Factory();
+
+    static void initialize();           ///< Initializes the factory
+    static void build();                ///< Creates components and initializes relations
+
+protected:
+    // TODO: Add static attributes here
 };
 
-#endif /* FACTORY_H_ */
+} /* namespace app */
+#endif // __cplusplus
+
+//
+// What is seen by the C and C++ compiler
+//
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus
+
+void Factory_initialize();
+void Factory_build();
+
+#ifdef __cplusplus
+}
+#endif // __cplusplus
+
+#endif // FACTORY_H

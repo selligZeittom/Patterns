@@ -16,3 +16,10 @@ ButtonsController::~ButtonsController() {
 	// TODO Auto-generated destructor stub
 }
 
+void ButtonsController::onIrq() {
+}
+
+bool ButtonsController::registerCallback(
+		ButtonsControllerCallbackProvider* callbackProvider,
+		ButtonsControllerCallbackProvider::CallbackMethod callbackMethod) {
+}

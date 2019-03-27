@@ -7,12 +7,17 @@
 
 #include <app/factory.h>
 
-Factory::Factory() {
-	// TODO Auto-generated constructor stub
-
+app::Factory::Factory() {
 }
 
-Factory::~Factory() {
-	// TODO Auto-generated destructor stub
+void app::Factory::initialize() {
 }
 
+void app::Factory::build() {
+}
+
+void Factory_initialize() {
+}
+
+void Factory_build() {
+}
