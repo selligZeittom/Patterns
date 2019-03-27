@@ -11,19 +11,25 @@
 #include "interface/buttonirq.h"
 #include "interface/buttonscontrollercallbackcaller.h"
 #include "interface/buttonscontrollercallbackprovider.h"
+#include "xf/behavior.h"
 
-class ButtonsController : interface::ButtonIrq, interface::ButtonsControllerCallbackCaller
+class ButtonsController : public interface::ButtonIrq, interface::ButtonsControllerCallbackCaller, XFBehavior
 {
 public:
 	ButtonsController();
 	virtual ~ButtonsController();
 
 	//from the interface ButtonIrq
-	void onIrq();
+	virtual void onIrq();
 
 	//from the interface ButtonsControllerCallbackCaller
-	bool registerCallback(ButtonsControllerCallbackProvider * callbackProvider,
+	/*
+	virtual bool registerCallback(ButtonsControllerCallbackProvider * callbackProvider,
 	                                  ButtonsControllerCallbackProvider::CallbackMethod callbackMethod);
+	*/
+
+	//from the state machine class
+	virtual XFEventStatus processEvent();
 
 	enum GPIO{
 		BUTTON0_Pin = 0,
