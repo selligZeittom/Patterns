@@ -8,10 +8,10 @@
 #ifndef BUTTON_BUTTONEVENTSHANDLER_H_
 #define BUTTON_BUTTONEVENTSHANDLER_H_
 
-class ButtonEventHandler {
+class ButtonEventsHandler {
 public:
-	ButtonEventHandler();
-	virtual ~ButtonEventHandler();
+	ButtonEventsHandler();
+	virtual ~ButtonEventsHandler();
 };
 
 #endif /* BUTTON_BUTTONEVENTSHANDLER_H_ */

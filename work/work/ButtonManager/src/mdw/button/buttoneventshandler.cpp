@@ -7,12 +7,12 @@
 
 #include <button/buttoneventshandler.h>
 
-ButtonEventHandler::ButtonEventHandler() {
+ButtonEventsHandler::ButtonEventsHandler() {
 	// TODO Auto-generated constructor stub
 
 }
 
-ButtonEventHandler::~ButtonEventHandler() {
+ButtonEventsHandler::~ButtonEventsHandler() {
 	// TODO Auto-generated destructor stub
 }
 
