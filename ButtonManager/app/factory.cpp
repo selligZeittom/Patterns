@@ -8,6 +8,7 @@
 #include <app/factory.h>
 
 app::Factory::Factory() {
+	this->theButtonController = ButtonsController::getInstance();
 }
 
 void app::Factory::initialize() {

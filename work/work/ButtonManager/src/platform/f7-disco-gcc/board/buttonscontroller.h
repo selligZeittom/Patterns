@@ -10,14 +10,13 @@
 
 #include "interface/buttonirq.h"
 #include "interface/buttonscontrollercallbackcaller.h"
-#include "interface/buttonscontrollercallbackprovider.h"
 #include "xf/behavior.h"
 
-class ButtonsController : public interface::ButtonIrq, interface::ButtonsControllerCallbackCaller, XFBehavior
+//interface::ButtonsControllerCallbackCaller,
+class ButtonsController : public interface::ButtonIrq,  XFBehavior
 {
 public:
-	ButtonsController();
-	virtual ~ButtonsController();
+	static ButtonsController* getInstance();
 
 	//from the interface ButtonIrq
 	virtual void onIrq();
@@ -26,7 +25,7 @@ public:
 	/*
 	virtual bool registerCallback(ButtonsControllerCallbackProvider * callbackProvider,
 	                                  ButtonsControllerCallbackProvider::CallbackMethod callbackMethod);
-	*/
+*/
 
 	//from the state machine class
 	virtual XFEventStatus processEvent();
@@ -37,6 +36,10 @@ public:
 		BUTTON2_Pin = 0,
 		BUTTON3_Pin = 0
 	};
+
+private:
+	ButtonsController();
+	virtual ~ButtonsController();
 };
 
 #endif /* BOARD_BUTTONSCONTROLLER_H_ */

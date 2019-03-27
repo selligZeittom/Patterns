@@ -19,6 +19,16 @@ ButtonsController::~ButtonsController() {
 void ButtonsController::onIrq() {
 }
 
+ButtonsController* ButtonsController::getInstance()
+{
+	static ButtonsController* theButtonController = nullptr;
+	if(!theButtonController)
+	{
+		theButtonController = new ButtonsController();
+	}
+	return theButtonController;
+}
+
 /*
 bool ButtonsController::registerCallback(
 		ButtonsControllerCallbackProvider* callbackProvider,

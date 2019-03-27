@@ -25,7 +25,7 @@ protected:
     // TODO: Add static attributes here
     static ButtonEventsHandler* theButtonEventsHandler;
     static ButtonEventsLogger* theButtonEventsLogger;
-    static ButtonsController* theButtonEventsController;
+    static ButtonsController* theButtonController;
 };
 
 } /* namespace app */
