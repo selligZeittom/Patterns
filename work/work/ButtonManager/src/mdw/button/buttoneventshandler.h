@@ -10,6 +10,12 @@
 
 class ButtonEventsHandler {
 public:
+	static ButtonEventsHandler* getInstance();
+
+	//factory patterns
+	void initRelations();
+
+private:
 	ButtonEventsHandler();
 	virtual ~ButtonEventsHandler();
 };

@@ -8,17 +8,25 @@
 #include <app/factory.h>
 
 app::Factory::Factory() {
-	this->theButtonController = ButtonsController::getInstance();
+
 }
 
 void app::Factory::initialize() {
+	theButtonController = ButtonsController::getInstance();
+	theButtonEventsHandler = ButtonEventsHandler::getInstance();
+	theButtonEventsLogger = new ButtonEventsLogger();
 }
 
 void app::Factory::build() {
+	theButtonController->initRelations();
+	theButtonEventsHandler->initRelations();
+	theButtonEventsLogger->initRelations();
 }
 
 void Factory_initialize() {
+	app::Factory::initialize();
 }
 
 void Factory_build() {
+	app::Factory::build();
 }

@@ -16,10 +16,14 @@
 class ButtonsController : public interface::ButtonIrq,  XFBehavior
 {
 public:
+	//get the single instance
 	static ButtonsController* getInstance();
 
 	//from the interface ButtonIrq
 	virtual void onIrq();
+
+	//factory patterns
+	void initRelations();
 
 	//from the interface ButtonsControllerCallbackCaller
 	/*

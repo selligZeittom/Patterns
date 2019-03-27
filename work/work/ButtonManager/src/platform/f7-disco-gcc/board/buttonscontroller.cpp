@@ -38,3 +38,7 @@ bool ButtonsController::registerCallback(
 
 XFEventStatus ButtonsController::processEvent() {
 }
+
+void ButtonsController::initRelations()
+{
+}

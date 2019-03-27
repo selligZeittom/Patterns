@@ -20,6 +20,9 @@ public:
 	ButtonEventsLogger();
 	virtual ~ButtonEventsLogger();
 
+	//factory patterns
+	void initRelations();
+
 	//from the interface
 	virtual void onButtonShortPressed(ButtonIndex buttonIndex); ///< @brief Called by the subject upon a button short pressed.
 	virtual void onButtonLongPressed(ButtonIndex buttonIndex); ///< @brief Called by the subject upon a button long pressed.

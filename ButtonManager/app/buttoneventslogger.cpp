@@ -26,6 +26,9 @@ void ButtonEventsLogger::onButtonLongPressed(ButtonIndex buttonIndex) {
 
 }
 
+void ButtonEventsLogger::initRelations() {
+}
+
 XFEventStatus ButtonEventsLogger::processEvent() {
 	XFEventStatus eventStatus = XFEventStatus::Unknown;
 	STATE_LOGGER oldState = this->currentState;

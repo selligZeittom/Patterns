@@ -16,3 +16,14 @@ ButtonEventsHandler::~ButtonEventsHandler() {
 	// TODO Auto-generated destructor stub
 }
 
+ButtonEventsHandler* ButtonEventsHandler::getInstance() {
+	static ButtonEventsHandler* theButtonEventsHandler = nullptr;
+	if(!theButtonEventsHandler)
+	{
+		theButtonEventsHandler = new ButtonEventsHandler();
+	}
+	return theButtonEventsHandler;
+}
+
+void ButtonEventsHandler::initRelations() {
+}
