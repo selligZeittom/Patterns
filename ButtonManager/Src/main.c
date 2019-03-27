@@ -40,6 +40,8 @@
 #include "stm32f7xx_hal.h"
 
 /* USER CODE BEGIN Includes */
+#include "xf/xf.h"
+#include "app/factory.h"
 
 /* USER CODE END Includes */
 
@@ -128,6 +130,8 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
+  XF_initialize(20);
+  Factory_initialize();
 
   /* USER CODE END SysInit */
 
