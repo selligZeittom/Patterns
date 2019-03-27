@@ -13,12 +13,13 @@ public:
 	ButtonsController();
 	virtual ~ButtonsController();
 
-	struct GPIO_Pins {
-		uint16_t BUTTON0_Pin = 0x00,
-		uint16_t BUTTON1_Pin = 0x00,
-		uint16_t BUTTON2_Pin = 0x00,
-		uint16_t BUTTON3_Pin = 0x00
-	};
+	/*
+	enum GPIO{
+		BUTTON0_Pin = 0,
+		BUTTON1_Pin = 0,
+		BUTTON2_Pin = 0,
+		BUTTON3_Pin = 0
+	};*/
 };
 
 #endif /* BOARD_BUTTONSCONTROLLER_H_ */
