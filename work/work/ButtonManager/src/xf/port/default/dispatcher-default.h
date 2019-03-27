@@ -1,7 +1,7 @@
 #ifndef XF_DISPATCHER_DEFAULT_H
 #define XF_DISPATCHER_DEFAULT_H
 
-#include <config/xf-config.h>
+#include <xf/config/xf-config.h>
 
 #if (USE_XF_DISPATCHER_DEFAULT_IMPLEMENTATION != 0)
 

@@ -11,6 +11,8 @@
 #include <interface/buttoneventshandlerobserver.h>
 #include "mdw/trace/trace.h"
 #include "xf/behavior.h"
+#include "xf/port/default/timeoutmanager-default.h"
+
 
 class ButtonEventsLogger: public interface::ButtonEventsHandlerObserver, XFBehavior
 {
