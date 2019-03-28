@@ -10,22 +10,20 @@
 #include "mdw/button/buttoneventshandler.h"
 #include "board/buttonscontroller.h"
 
-namespace app
-{
+namespace app {
 
-class Factory
-{
+class Factory {
 public:
-    Factory();
+	Factory();
 
-    static void initialize();           ///< Initializes the factory
-    static void build();                ///< Creates components and initializes relations
+	static void initialize();           ///< Initializes the factory
+	static void build();       ///< Creates components and initializes relations
 
 protected:
-    // TODO: Add static attributes here
-    static ButtonEventsHandler* theButtonEventsHandler;
-    static ButtonEventsLogger* theButtonEventsLogger;
-    static ButtonsController* theButtonController;
+	// TODO: Add static attributes here
+	static ButtonEventsLogger* theButtonEventsLogger;
+	static ButtonEventsHandler* theButtonEventsHandler; //it is a singleton
+	static ButtonsController* theButtonController; //it is a singleton
 };
 
 } /* namespace app */

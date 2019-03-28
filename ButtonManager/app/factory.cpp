@@ -7,15 +7,19 @@
 
 #include <app/factory.h>
 
+//must be done here as it is static attributes
+ButtonEventsHandler* app::Factory::theButtonEventsHandler = ButtonEventsHandler::getInstance();
+ButtonEventsLogger* app::Factory::theButtonEventsLogger = new ButtonEventsLogger();
+ButtonsController* app::Factory::theButtonController = ButtonsController::getInstance();
+
 app::Factory::Factory() {
 
 }
 
 void app::Factory::initialize() {
-	theButtonController = ButtonsController::getInstance();
-	theButtonEventsHandler = ButtonEventsHandler::getInstance();
-	theButtonEventsLogger = new ButtonEventsLogger();
 }
+
+
 
 void app::Factory::build() {
 	theButtonController->initRelations();
