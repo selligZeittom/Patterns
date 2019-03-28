@@ -13,7 +13,7 @@
 #include "xf/behavior.h"
 
 //interface::ButtonsControllerCallbackCaller,
-class ButtonsController : public interface::ButtonIrq,  XFBehavior
+class ButtonsController : public interface::ButtonIrq,  public XFBehavior
 {
 public:
 	//get the single instance

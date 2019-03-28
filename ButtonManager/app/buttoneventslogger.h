@@ -14,7 +14,7 @@
 #include "xf/port/default/timeoutmanager-default.h"
 
 
-class ButtonEventsLogger: public interface::ButtonEventsHandlerObserver, XFBehavior
+class ButtonEventsLogger: public interface::ButtonEventsHandlerObserver, public XFBehavior
 {
 public:
 	ButtonEventsLogger();

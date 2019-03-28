@@ -42,7 +42,7 @@
 /* USER CODE BEGIN Includes */
 #include "xf/xf.h"
 #include "app/factory.h"
-
+#include "mdw/trace/trace.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -132,7 +132,7 @@ int main(void)
   /* USER CODE BEGIN SysInit */
   XF_initialize(20);
   Factory_initialize();
-
+  trace_initialize();
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -152,18 +152,19 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART6_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  Factory_build();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  trace_out("going into the while true loop");
   while (1)
   {
 
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-
+	  XF_execOnce();
   }
   /* USER CODE END 3 */
 
