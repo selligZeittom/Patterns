@@ -9,7 +9,10 @@
 
 ButtonsController::ButtonsController() {
 	// TODO Auto-generated constructor stub
-
+	for(int i  = 0; i < NB_BUTTONS; i++)
+	{
+		buttons[i] = 0;
+	}
 }
 
 ButtonsController::~ButtonsController() {
@@ -38,8 +41,14 @@ bool ButtonsController::registerCallback(
 */
 
 XFEventStatus ButtonsController::processEvent() {
+
 }
 
 void ButtonsController::initRelations()
 {
+}
+
+bool ButtonsController::registerCallback(
+		interface::ButtonsControllerCallbackProvider* callbackProvider,
+		interface::ButtonsControllerCallbackProvider::CallbackMethod callbackMethod) {
 }

@@ -10,11 +10,13 @@
 
 #include "interface/buttonirq.h"
 #include "interface/buttonscontrollercallbackcaller.h"
+#include "interface/buttonscontrollercallbackprovider.h"
 #include "xf/behavior.h"
 
+#define NB_BUTTONS 4
+
 //interface::ButtonsControllerCallbackCaller,
-class ButtonsController : public interface::ButtonIrq,  public XFBehavior
-{
+class ButtonsController: public interface::ButtonIrq, public XFBehavior {
 public:
 	//get the single instance
 	static ButtonsController* getInstance();
@@ -22,14 +24,13 @@ public:
 	//from the interface ButtonIrq
 	virtual void onIrq();
 
-	//factory patterns
+	//factory pattern
 	void initRelations();
 
 	//from the interface ButtonsControllerCallbackCaller
-	/*
-	virtual bool registerCallback(ButtonsControllerCallbackProvider * callbackProvider,
-	                                  ButtonsControllerCallbackProvider::CallbackMethod callbackMethod);
-*/
+	virtual bool registerCallback(
+			interface::ButtonsControllerCallbackProvider * callbackProvider,
+			interface::ButtonsControllerCallbackProvider::CallbackMethod callbackMethod);
 
 	//from the state machine class
 	virtual XFEventStatus processEvent();
@@ -37,6 +38,9 @@ public:
 private:
 	ButtonsController();
 	virtual ~ButtonsController();
+
+	//store the state of the buttons
+	uint8_t buttons[NB_BUTTONS];
 };
 
 #endif /* BOARD_BUTTONSCONTROLLER_H_ */
