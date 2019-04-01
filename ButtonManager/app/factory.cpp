@@ -26,8 +26,8 @@ void app::Factory::build() {
 	theButtonEventsHandler->initRelations();
 	theButtonEventsLogger->initRelations();
 
-	theButtonController->startBehavior();
-	theButtonEventsLogger->startBehavior();
+	//theButtonController->startBehavior();
+	//theButtonEventsLogger->startBehavior();
 }
 
 void Factory_initialize() {

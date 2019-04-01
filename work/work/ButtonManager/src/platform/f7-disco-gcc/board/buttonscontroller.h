@@ -34,13 +34,6 @@ public:
 	//from the state machine class
 	virtual XFEventStatus processEvent();
 
-	enum GPIO{
-		BUTTON0_Pin = 0,
-		BUTTON1_Pin = 0,
-		BUTTON2_Pin = 0,
-		BUTTON3_Pin = 0
-	};
-
 private:
 	ButtonsController();
 	virtual ~ButtonsController();

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>ButtonManager</name>
-	<comment></comment>
+	<comment />
 	<projects>
 	</projects>
 	<buildSpec>
@@ -29,7 +29,7 @@
 		<link>
 			<name>event</name>
 			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/work/work/ButtonManager/src/event</locationURI>
+			<location>PARENT-1-PROJECT_LOC/work/work/ButtonManager/src/event</location>
 		</link>
 		<link>
 			<name>interface</name>

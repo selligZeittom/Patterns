@@ -17,6 +17,7 @@ ButtonsController::~ButtonsController() {
 }
 
 void ButtonsController::onIrq() {
+
 }
 
 ButtonsController* ButtonsController::getInstance()
