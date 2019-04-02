@@ -30,7 +30,7 @@ void app::Factory::build() {
 	//start the dispatcher before launching any event
 	XFResourceFactoryDefault::getInstance()->getDefaultDispatcher()->start();
 	theButtonController->startBehavior();
-	theButtonEventsLogger->startBehavior();
+	//theButtonEventsLogger->startBehavior();
 }
 
 void Factory_initialize() {

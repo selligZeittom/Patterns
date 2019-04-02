@@ -13,6 +13,7 @@
 #include "interface/buttonscontrollercallbackprovider.h"
 #include "xf/behavior.h"
 #include "xf/port/default/timeoutmanager-default.h"
+#include "xf/port/default/resourcefactory-default.h"
 #include "mdw/trace/trace.h"
 #include "event/evbuttonirq.h"
 #include "event/events.h"

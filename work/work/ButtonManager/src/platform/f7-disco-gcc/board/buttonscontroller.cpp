@@ -22,7 +22,7 @@ ButtonsController::~ButtonsController() {
 
 void ButtonsController::onIrq() {
 	//launch an event to go to state debounce
-	XFResourceFactoryDefault::getInstance()->getDefaultDispatcher()->pushEvent(evOnIrq);
+	pushEvent(evOnIrq);
 }
 
 ButtonsController* ButtonsController::getInstance() {
@@ -47,13 +47,13 @@ XFEventStatus ButtonsController::processEvent() {
 		break;
 	case STATE_WAIT:
 		if (getCurrentEvent()->getEventType() == XFEvent::Event
-				&& getCurrentEvent()->getId() == EVENT_ID_DEBOUNCE) {
+				&& getCurrentEvent()->getId() == evButtonIrqId) {
 			currentState = STATE_DEBOUNCE;
 			eventStatus = XFEventStatus::Consumed;
 		}
 		break;
 	case STATE_DEBOUNCE:
-		if (getCurrentEvent()->getEventType() == XFEvent::Event
+		if (getCurrentEvent()->getEventType() == XFEvent::Timeout
 				&& getCurrentEvent()->getId() == EVENT_ID_DEBOUNCE) {
 			currentState = STATE_WAIT;
 			eventStatus = XFEventStatus::Consumed;
@@ -84,13 +84,13 @@ XFEventStatus ButtonsController::processEvent() {
 			break;
 		case STATE_DEBOUNCE:
 			Trace::out("[ButtonsController] : state debouncer");
-			XFTimeoutManagerDefault::getInstance()->scheduleTimeout(EVENT_ID_DEBOUNCE, 100, this);
+			XFTimeoutManagerDefault::getInstance()->scheduleTimeout(
+					EVENT_ID_DEBOUNCE, 100, this);
 			break;
 		default:
 			break;
 		}
 	}
-
 	return eventStatus;
 }
 
@@ -103,4 +103,8 @@ bool ButtonsController::registerCallback(
 }
 
 void ButtonsController::checkButtons() {
+	for(int i = 0; i < NB_BUTTONS; i++)
+	{
+
+	}
 }
