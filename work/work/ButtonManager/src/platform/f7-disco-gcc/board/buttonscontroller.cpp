@@ -9,10 +9,11 @@
 
 ButtonsController::ButtonsController() {
 	// TODO Auto-generated constructor stub
-	for(int i  = 0; i < NB_BUTTONS; i++)
-	{
+	for (int i = 0; i < NB_BUTTONS; i++) {
 		buttons[i] = 0;
 	}
+	evOnIrq = new evButtonIrq();
+	currentState = STATE_INITIAL;
 }
 
 ButtonsController::~ButtonsController() {
@@ -20,35 +21,86 @@ ButtonsController::~ButtonsController() {
 }
 
 void ButtonsController::onIrq() {
-
+	//launch an event to go to state debounce
+	XFResourceFactoryDefault::getInstance()->getDefaultDispatcher()->pushEvent(evOnIrq);
 }
 
-ButtonsController* ButtonsController::getInstance()
-{
+ButtonsController* ButtonsController::getInstance() {
 	static ButtonsController* theButtonController = nullptr;
-	if(!theButtonController)
-	{
+	if (!theButtonController) {
 		theButtonController = new ButtonsController();
 	}
 	return theButtonController;
 }
 
-/*
-bool ButtonsController::registerCallback(
-		ButtonsControllerCallbackProvider* callbackProvider,
-		ButtonsControllerCallbackProvider::CallbackMethod callbackMethod) {
-}
-*/
-
 XFEventStatus ButtonsController::processEvent() {
+	XFEventStatus eventStatus = XFEventStatus::Unknown;
+	STATE_CONTROLLER oldState = this->currentState;
 
+	//on transitions actions
+	switch (currentState) {
+	case STATE_INITIAL:
+		if (getCurrentEvent()->getEventType() == XFEvent::Initial) {
+			currentState = STATE_WAIT;
+			eventStatus = XFEventStatus::Consumed;
+		}
+		break;
+	case STATE_WAIT:
+		if (getCurrentEvent()->getEventType() == XFEvent::Event
+				&& getCurrentEvent()->getId() == EVENT_ID_DEBOUNCE) {
+			currentState = STATE_DEBOUNCE;
+			eventStatus = XFEventStatus::Consumed;
+		}
+		break;
+	case STATE_DEBOUNCE:
+		if (getCurrentEvent()->getEventType() == XFEvent::Event
+				&& getCurrentEvent()->getId() == EVENT_ID_DEBOUNCE) {
+			currentState = STATE_WAIT;
+			eventStatus = XFEventStatus::Consumed;
+		}
+		break;
+	default:
+		break;
+	}
+
+	if (oldState != this->currentState) {
+		//on exit actions
+		switch (oldState) {
+		case STATE_DEBOUNCE:
+			Trace::out("[ButtonsController] : /onExit actions");
+			checkButtons(); //polling of the buttons
+			break;
+		default:
+			break;
+		}
+
+		//on entry actions
+		switch (currentState) {
+		case STATE_INITIAL:
+			Trace::out("[ButtonsController] : state initial");
+			break;
+		case STATE_WAIT:
+			Trace::out("[ButtonsController] : state wait");
+			break;
+		case STATE_DEBOUNCE:
+			Trace::out("[ButtonsController] : state debouncer");
+			XFTimeoutManagerDefault::getInstance()->scheduleTimeout(EVENT_ID_DEBOUNCE, 100, this);
+			break;
+		default:
+			break;
+		}
+	}
+
+	return eventStatus;
 }
 
-void ButtonsController::initRelations()
-{
+void ButtonsController::initRelations() {
 }
 
 bool ButtonsController::registerCallback(
 		interface::ButtonsControllerCallbackProvider* callbackProvider,
 		interface::ButtonsControllerCallbackProvider::CallbackMethod callbackMethod) {
+}
+
+void ButtonsController::checkButtons() {
 }

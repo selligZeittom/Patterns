@@ -12,6 +12,10 @@
 #include "interface/buttonscontrollercallbackcaller.h"
 #include "interface/buttonscontrollercallbackprovider.h"
 #include "xf/behavior.h"
+#include "xf/port/default/timeoutmanager-default.h"
+#include "mdw/trace/trace.h"
+#include "event/evbuttonirq.h"
+#include "event/events.h"
 
 #define NB_BUTTONS 4
 
@@ -38,9 +42,24 @@ public:
 private:
 	ButtonsController();
 	virtual ~ButtonsController();
+	void checkButtons();
 
 	//store the state of the buttons
 	uint8_t buttons[NB_BUTTONS];
+
+	//states for the state machine
+	typedef enum {
+		STATE_INITIAL = 0, STATE_WAIT = 1, STATE_DEBOUNCE = 2
+	} STATE_CONTROLLER;
+
+	enum {
+		EVENT_ID_DEBOUNCE = 0
+	};
+
+	//current state of the state machine
+	STATE_CONTROLLER currentState;
+
+	evButtonIrq* evOnIrq;
 };
 
 #endif /* BOARD_BUTTONSCONTROLLER_H_ */

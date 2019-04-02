@@ -7,7 +7,7 @@
 
 #include <app/buttoneventslogger.h>
 
-#define debugMode 1
+#define debugMode 0
 
 ButtonEventsLogger::ButtonEventsLogger() {
 	// TODO Auto-generated constructor stub
