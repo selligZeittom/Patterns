@@ -6,6 +6,7 @@
  */
 
 #include <app/factory.h>
+#include "xf/port/default/resourcefactory-default.h"
 
 //must be done here as it is static attributes
 ButtonEventsHandler* app::Factory::theButtonEventsHandler = ButtonEventsHandler::getInstance();
@@ -26,6 +27,8 @@ void app::Factory::build() {
 	theButtonEventsHandler->initRelations();
 	theButtonEventsLogger->initRelations();
 
+	//start the dispatcher before launching any event
+	XFResourceFactoryDefault::getInstance()->getDefaultDispatcher()->start();
 	theButtonController->startBehavior();
 	theButtonEventsLogger->startBehavior();
 }

@@ -57,7 +57,10 @@ void SysTick_Handler(void)
   HAL_IncTick();
   HAL_SYSTICK_IRQHandler();
   /* USER CODE BEGIN SysTick_IRQn 1 */
-  XF_tick();
+  if ((HAL_GetTick() % XF_tickIntervalInMilliseconds()) == 0)
+  {
+      XF_tick();
+  }
   /* USER CODE END SysTick_IRQn 1 */
 }
 
