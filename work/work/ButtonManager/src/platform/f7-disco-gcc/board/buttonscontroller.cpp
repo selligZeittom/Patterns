@@ -62,7 +62,6 @@ XFEventStatus ButtonsController::processEvent() {
 	default:
 		break;
 	}
-
 	if (oldState != this->currentState) {
 		//on exit actions
 		switch (oldState) {
@@ -103,8 +102,8 @@ bool ButtonsController::registerCallback(
 }
 
 void ButtonsController::checkButtons() {
-	for(int i = 0; i < NB_BUTTONS; i++)
-	{
-
-	}
+	HAL_GPIO_ReadPin(BUTTON0_GPIO_Port, BUTTON0_Pin);
+	HAL_GPIO_ReadPin(BUTTON1_GPIO_Port, BUTTON1_Pin);
+	HAL_GPIO_ReadPin(BUTTON2_GPIO_Port, BUTTON2_Pin);
+	HAL_GPIO_ReadPin(BUTTON3_GPIO_Port, BUTTON3_Pin);
 }
