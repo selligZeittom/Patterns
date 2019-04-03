@@ -23,7 +23,7 @@ void app::Factory::initialize() {
 
 
 void app::Factory::build() {
-	theButtonController->initRelations();
+	theButtonController->initRelations(theButtonEventsHandler, (interface::ButtonsControllerCallbackProvider::CallbackMethod)&ButtonEventsHandler::onBtnChanged);
 	theButtonEventsHandler->initRelations();
 	theButtonEventsLogger->initRelations();
 

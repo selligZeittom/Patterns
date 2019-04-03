@@ -20,7 +20,9 @@
 
 #define NB_BUTTONS 4
 
-class ButtonsController: public interface::ButtonIrq, public XFBehavior, public interface::ButtonsControllerCallbackCaller {
+class ButtonsController: public interface::ButtonIrq,
+		public XFBehavior,
+		public interface::ButtonsControllerCallbackCaller {
 public:
 	//get the single instance
 	static ButtonsController* getInstance();
@@ -29,7 +31,9 @@ public:
 	virtual void onIrq();
 
 	//factory pattern
-	void initRelations();
+	void initRelations(
+			interface::ButtonsControllerCallbackProvider* callbackProvider,
+			interface::ButtonsControllerCallbackProvider::CallbackMethod callbackMethod);
 
 	//from the interface ButtonsControllerCallbackCaller
 	virtual bool registerCallback(

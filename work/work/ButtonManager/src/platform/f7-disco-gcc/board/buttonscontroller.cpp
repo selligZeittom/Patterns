@@ -10,10 +10,12 @@
 ButtonsController::ButtonsController() {
 	// TODO Auto-generated constructor stub
 	for (int i = 0; i < NB_BUTTONS; i++) {
-		buttons[i] = 0;
+		buttons[i] = 1;
 	}
 	evOnIrq = new evButtonIrq();
 	currentState = STATE_INITIAL;
+	cbMethodPtr = nullptr;
+	called = nullptr;
 }
 
 ButtonsController::~ButtonsController() {
@@ -66,8 +68,8 @@ XFEventStatus ButtonsController::processEvent() {
 		//on exit actions
 		switch (oldState) {
 		case STATE_DEBOUNCE:
+			checkButtons();
 			Trace::out("[ButtonsController] : /onExit actions");
-			checkButtons(); //polling of the buttons
 			break;
 		default:
 			break;
@@ -93,7 +95,10 @@ XFEventStatus ButtonsController::processEvent() {
 	return eventStatus;
 }
 
-void ButtonsController::initRelations() {
+void ButtonsController::initRelations(
+		interface::ButtonsControllerCallbackProvider* callbackProvider,
+		interface::ButtonsControllerCallbackProvider::CallbackMethod callbackMethod) {
+	registerCallback(callbackProvider, callbackMethod);
 }
 
 bool ButtonsController::registerCallback(
@@ -106,25 +111,30 @@ bool ButtonsController::registerCallback(
 
 void ButtonsController::call(uint16_t index, GPIO_PinState state) {
 	bool isPressed = (state == 1); //isPresse is true if state is '1'
-	(called->*cbMethodPtr)(index, isPressed);
-
+	Trace::out("[ButtonsController] : callback method");
+	(called->*cbMethodPtr)(index, isPressed); //call the method into the buttonhandler
 }
 
 void ButtonsController::checkButtons() {
+	Trace::out("[ButtonsController] : checkbuttons()");
 	GPIO_PinState val0 = HAL_GPIO_ReadPin(BUTTON0_GPIO_Port, BUTTON0_Pin);
-	if ((GPIO_PinState) (buttons[0]) != val0) {
+	if (buttons[0] != (uint8_t) val0) {
 		call(0, val0);
+		buttons[0] = val0;
 	}
 	GPIO_PinState val1 = HAL_GPIO_ReadPin(BUTTON1_GPIO_Port, BUTTON1_Pin);
-	if ((GPIO_PinState) (buttons[1]) != val1) {
+	if (buttons[1] != (uint8_t) val1) {
 		call(1, val1);
+		buttons[1] = val1;
 	}
 	GPIO_PinState val2 = HAL_GPIO_ReadPin(BUTTON2_GPIO_Port, BUTTON2_Pin);
-	if ((GPIO_PinState) (buttons[2]) != val2) {
+	if (buttons[2] != (uint8_t) val2) {
 		call(2, val2);
+		buttons[2] = val2;
 	}
 	GPIO_PinState val3 = HAL_GPIO_ReadPin(BUTTON3_GPIO_Port, BUTTON3_Pin);
-	if ((GPIO_PinState) (buttons[3]) != val3) {
+	if (buttons[3] != (uint8_t) val3) {
 		call(3, val3);
+		buttons[3] = val3;
 	}
 }

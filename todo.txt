@@ -1,4 +1,3 @@
-factory build : callbackRegister() must be added
 factory init relations : some objects must maybe passed
 registerCallback returns always true ?
 maybe need to  remove a few include
