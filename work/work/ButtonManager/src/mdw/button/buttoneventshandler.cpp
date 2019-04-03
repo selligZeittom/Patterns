@@ -12,6 +12,9 @@ ButtonEventsHandler::ButtonEventsHandler() {
 
 }
 
+void ButtonEventsHandler::onBtnChanged(uint16_t btnIndex, bool isPressed) {
+}
+
 ButtonEventsHandler::~ButtonEventsHandler() {
 	// TODO Auto-generated destructor stub
 }

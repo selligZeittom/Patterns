@@ -17,7 +17,6 @@
 #include "mdw/trace/trace.h"
 #include "event/evbuttonirq.h"
 #include "event/events.h"
-#include "callbackenabler.h"
 
 #define NB_BUTTONS 4
 
@@ -41,7 +40,7 @@ public:
 	virtual XFEventStatus processEvent();
 
 	//callback to the called
-	void call();
+	void call(uint16_t index, GPIO_PinState state);
 
 private:
 	ButtonsController();
@@ -66,8 +65,9 @@ private:
 	//event to be pushed from the isr
 	evButtonIrq* evOnIrq;
 
-	//callback enabler contains the called and the method to call
-	CallbackEnabler::CallbackElement cbElement;
+	//called
+	interface::ButtonsControllerCallbackProvider* called;
+	interface::ButtonsControllerCallbackProvider::CallbackMethod cbMethodPtr;
 };
 
 #endif /* BOARD_BUTTONSCONTROLLER_H_ */
