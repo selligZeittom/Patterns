@@ -24,8 +24,8 @@ public:
 	void initRelations();
 
 	//from the interface
-	virtual void onButtonShortPressed(ButtonIndex buttonIndex); ///< @brief Called by the subject upon a button short pressed.
-	virtual void onButtonLongPressed(ButtonIndex buttonIndex); ///< @brief Called by the subject upon a button long pressed.
+	virtual void onButtonShortPressed(ButtonIndex buttonIndex);
+	virtual void onButtonLongPressed(ButtonIndex buttonIndex);
 
 	//from the state machine class
 	virtual XFEventStatus processEvent();
@@ -39,16 +39,25 @@ protected:
 		STATE_LONG_PRESS = 3
 	} STATE_LOGGER;
 
+	/*
+	 * this allows to know which button changed with only one fsm in the logger
+	 * to create the right EVENT_ID :
+	 * 	-	add the index of the button and 0 for a short press
+	 * 	-	add the index of the button and 10  for a long press
+	 *
+	 * 	now to recover the index of the button from any EVENT_ID,
+	 * 	simply do EVENT_ID % 10
+	 */
 	enum {
-		EVENT_ID_SHORT = 0,
-		EVENT_ID_LONG = 1,
-		EVENT_ID_WAIT = 2
-	};
-
-	enum {
-		EVENT_DB_SHORT = 0,
-		EVENT_DB_LONG = 1,
-		EVENT_DB_WAIT = 2
+		EVENT_ID_SHORT0 = 0,
+		EVENT_ID_SHORT1 = 1,
+		EVENT_ID_SHORT2 = 2,
+		EVENT_ID_SHORT3 = 3,
+		EVENT_ID_LONG0 = 10,
+		EVENT_ID_LONG1 = 11,
+		EVENT_ID_LONG2 = 12,
+		EVENT_ID_LONG3 = 13,
+		EVENT_ID_WAIT = 20
 	};
 
 	STATE_LOGGER currentState;

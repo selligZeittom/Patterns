@@ -40,10 +40,14 @@ void ButtonEventsHandler::unsubscribe(
 }
 
 void ButtonEventsHandler::notifyButtonShortPressed(ButtonIndex buttonIndex) {
-
+	for (auto obs : observers) {
+		obs->onButtonShortPressed(buttonIndex);
+	}
 }
 void ButtonEventsHandler::notifyButtonLongPressed(ButtonIndex buttonIndex) {
-
+	for (auto obs : observers) {
+		obs->onButtonLongPressed(buttonIndex);
+	}
 }
 
 ButtonEventsHandler::~ButtonEventsHandler() {
