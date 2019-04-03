@@ -10,6 +10,7 @@
 ButtonEventsHandler::ButtonEventsHandler() {
 	for (uint8_t i = 0; i < NB_BUTTONS; i++) {
 		fsmButtons[i].setId(i);
+		fsmButtons[i].setHandler(this);
 	}
 }
 

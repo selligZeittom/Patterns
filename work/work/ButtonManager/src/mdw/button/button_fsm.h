@@ -17,10 +17,12 @@
 #include "event/evbuttonpressed.h"
 #include "event/evbuttonreleased.h"
 
+class ButtonEventsHandler;
+
 class ButtonFSM: public XFBehavior {
 public:
 	ButtonFSM();
-	ButtonFSM(int id);
+	ButtonFSM(int id, ButtonEventsHandler* parent);
 	virtual ~ButtonFSM();
 
 	//from the state machine class
@@ -29,8 +31,9 @@ public:
 	//called by the buttoneventshandler
 	void onBtnChanged(bool isPressed);
 
-	//getter and setter for idFsm
+	//getter and setter for idFsm and theHandler
 	void setId(int id);
+	void setHandler(ButtonEventsHandler* parent);
 	int getId() const;
 
 private:
@@ -51,7 +54,11 @@ private:
 	//current state of the state machine
 	STATE_BTN currentState;
 
+	//each button has one of this fsm, with an unique id
 	int idFsm;
+
+	//connection to the container of the fsm
+	ButtonEventsHandler* theHandler;
 };
 
 #endif /* BUTTON_BUTTON_FSM_H_ */

@@ -6,15 +6,18 @@
  */
 
 #include <button/button_fsm.h>
+#include "mdw/button/buttoneventshandler.h"
 
 ButtonFSM::ButtonFSM() {
 	this->currentState = STATE_INITIAL;
 	this->idFsm = -1;
+	this->theHandler = nullptr;
 }
 
-ButtonFSM::ButtonFSM(int id) {
+ButtonFSM::ButtonFSM(int id, ButtonEventsHandler* parent) {
 	this->currentState = STATE_INITIAL;
 	this->idFsm = id;
+	this->theHandler = parent;
 }
 
 ButtonFSM::~ButtonFSM() {
@@ -108,6 +111,10 @@ void ButtonFSM::onBtnChanged(bool isPressed) {
 
 void ButtonFSM::setId(int id) {
 	this->idFsm = id;
+}
+
+void ButtonFSM::setHandler(ButtonEventsHandler* parent) {
+	this->theHandler = parent;
 }
 
 int ButtonFSM::getId() const {
