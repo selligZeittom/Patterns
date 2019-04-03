@@ -72,7 +72,6 @@ XFEventStatus ButtonsController::processEvent() {
 		switch (oldState) {
 		case STATE_DEBOUNCE:
 			checkButtons();
-			Trace::out("[ButtonsController] : /onExit actions");
 			break;
 		default:
 			break;
@@ -81,13 +80,13 @@ XFEventStatus ButtonsController::processEvent() {
 		//on entry actions
 		switch (currentState) {
 		case STATE_INITIAL:
-			Trace::out("[ButtonsController] : state initial");
+			//Trace::out("[ButtonsController] : state initial");
 			break;
 		case STATE_WAIT:
-			Trace::out("[ButtonsController] : state wait");
+			//Trace::out("[ButtonsController] : state wait");
 			break;
 		case STATE_DEBOUNCE:
-			Trace::out("[ButtonsController] : state debouncer");
+			//Trace::out("[ButtonsController] : state debouncer");
 			XFTimeoutManagerDefault::getInstance()->scheduleTimeout(
 					EVENT_ID_DEBOUNCE, 100, this);
 			break;
@@ -114,8 +113,8 @@ bool ButtonsController::registerCallback(
 }
 
 void ButtonsController::call(uint16_t index, GPIO_PinState state) {
-	bool isPressed = (state == 1); //isPresse is true if state is '1'
-	Trace::out("[ButtonsController] : calling the callback method");
+	bool isPressed = (state == 0); //isPressed is true if state is '0' because of the pull up
+	//Trace::out("[ButtonsController] : callback method");
 	(called->*cbMethodPtr)(index, isPressed); //call the method into the buttonhandler
 }
 

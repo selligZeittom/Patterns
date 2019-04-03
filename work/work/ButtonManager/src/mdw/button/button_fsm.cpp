@@ -9,7 +9,12 @@
 
 ButtonFSM::ButtonFSM() {
 	this->currentState = STATE_INITIAL;
+	this->idFsm = -1;
+}
 
+ButtonFSM::ButtonFSM(int id) {
+	this->currentState = STATE_INITIAL;
+	this->idFsm = id;
 }
 
 ButtonFSM::~ButtonFSM() {
@@ -65,23 +70,25 @@ XFEventStatus ButtonFSM::processEvent() {
 		//on entry actions
 		switch (currentState) {
 		case STATE_INITIAL:
-			Trace::out("[ButtonsController] : state initial");
+			Trace::out("[buttonFsm] : state initial");
 			break;
 		case STATE_WAIT:
-			Trace::out("[ButtonsController] : state wait");
+			Trace::out("[buttonFsm] : state wait");
 			break;
 		case STATE_BTN_PRESSED:
-			Trace::out("[ButtonsController] : state btn pressed");
+			Trace::out("[buttonFsm] : state btn pressed");
 			XFTimeoutManagerDefault::getInstance()->scheduleTimeout(
-								EVENT_ID_LONG, 1000, this);
+					EVENT_ID_LONG, 1000, this);
 			break;
 		case STATE_SHORT_PRESS:
-			Trace::out("[ButtonsController] : state short press");
+			Trace::out("[buttonFsm] : state short press");
 			XFTimeoutManagerDefault::getInstance()->unscheduleTimeout(
-								EVENT_ID_LONG, this);
+					EVENT_ID_LONG, this);
+			pushEvent(new XFNullTransition());
 			break;
 		case STATE_LONG_PRESS:
-			Trace::out("[ButtonsController] : state long press");
+			Trace::out("[buttonFsm] : state long press");
+			pushEvent(new XFNullTransition());
 			break;
 		default:
 			break;
@@ -91,4 +98,18 @@ XFEventStatus ButtonFSM::processEvent() {
 }
 
 void ButtonFSM::onBtnChanged(bool isPressed) {
+	Trace::out("[buttonFsm] : onBtnChanged()");
+	if (isPressed) {
+		pushEvent(new evButtonPressed());
+	} else {
+		pushEvent(new evButtonReleased());
+	}
+}
+
+void ButtonFSM::setId(int id) {
+	this->idFsm = id;
+}
+
+int ButtonFSM::getId() const {
+	return this->idFsm;
 }

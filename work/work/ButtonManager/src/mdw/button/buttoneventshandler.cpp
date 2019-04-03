@@ -8,21 +8,27 @@
 #include <button/buttoneventshandler.h>
 
 ButtonEventsHandler::ButtonEventsHandler() {
-	// TODO Auto-generated constructor stub
-
+	for (uint8_t i = 0; i < NB_BUTTONS; i++) {
+		fsmButtons[i].setId(i);
+	}
 }
 
 void ButtonEventsHandler::onBtnChanged(uint16_t btnIndex, bool isPressed) {
+	fsmButtons[btnIndex].onBtnChanged(isPressed);
+}
+
+void ButtonEventsHandler::startStateMachines() {
+	for (uint8_t i = 0; i < NB_BUTTONS; i++) {
+		fsmButtons[i].startBehavior();
+	}
 }
 
 ButtonEventsHandler::~ButtonEventsHandler() {
-	// TODO Auto-generated destructor stub
 }
 
 ButtonEventsHandler* ButtonEventsHandler::getInstance() {
 	static ButtonEventsHandler* theButtonEventsHandler = nullptr;
-	if(!theButtonEventsHandler)
-	{
+	if (!theButtonEventsHandler) {
 		theButtonEventsHandler = new ButtonEventsHandler();
 	}
 	return theButtonEventsHandler;

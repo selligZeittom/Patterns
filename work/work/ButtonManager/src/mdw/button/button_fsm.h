@@ -14,10 +14,13 @@
 #include "mdw/trace/trace.h"
 #include "event/evbuttonirq.h"
 #include "event/events.h"
+#include "event/evbuttonpressed.h"
+#include "event/evbuttonreleased.h"
 
 class ButtonFSM: public XFBehavior {
 public:
 	ButtonFSM();
+	ButtonFSM(int id);
 	virtual ~ButtonFSM();
 
 	//from the state machine class
@@ -25,6 +28,10 @@ public:
 
 	//called by the buttoneventshandler
 	void onBtnChanged(bool isPressed);
+
+	//getter and setter for idFsm
+	void setId(int id);
+	int getId() const;
 
 private:
 
@@ -43,6 +50,8 @@ private:
 
 	//current state of the state machine
 	STATE_BTN currentState;
+
+	int idFsm;
 };
 
 #endif /* BUTTON_BUTTON_FSM_H_ */
