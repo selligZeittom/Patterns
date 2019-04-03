@@ -26,10 +26,17 @@ void ButtonEventsHandler::startStateMachines() {
 
 bool ButtonEventsHandler::subscribe(
 		interface::ButtonEventsHandlerObserver* observer) {
+	observers.push_back(observer);
 }
 
 void ButtonEventsHandler::unsubscribe(
 		interface::ButtonEventsHandlerObserver* observer) {
+	for (ObserversList::iterator it = observers.begin(); it != observers.end();
+			it++) {
+		if ((*it) == observer) {
+			it = observers.erase(it);
+		}
+	}
 }
 
 void ButtonEventsHandler::notifyButtonShortPressed(ButtonIndex buttonIndex) {

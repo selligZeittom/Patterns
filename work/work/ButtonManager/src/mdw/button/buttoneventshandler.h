@@ -42,7 +42,12 @@ private:
 	ButtonEventsHandler();
 	virtual ~ButtonEventsHandler();
 
+	//one fsm per button
 	ButtonFSM fsmButtons[NB_BUTTONS];
+
+	//list of the observers
+	typedef std::list<interface::ButtonEventsHandlerObserver *> ObserversList;
+	ObserversList observers;
 };
 
 #endif /* BUTTON_BUTTONEVENTSHANDLER_H_ */
