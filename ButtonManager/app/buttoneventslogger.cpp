@@ -6,6 +6,7 @@
  */
 
 #include <app/buttoneventslogger.h>
+#include <string.h>
 
 #define debugMode 0
 
@@ -45,6 +46,16 @@ XFEventStatus ButtonEventsLogger::processEvent() {
 						|| getCurrentEvent()->getId() == EVENT_ID_SHORT2
 						|| getCurrentEvent()->getId() == EVENT_ID_SHORT3)) {
 			currentState = STATE_SHORT_PRESS;
+
+			//some char* fun :-S
+			char msg[128];
+			const char * baseText =
+					"[ButtonEventsLogger] : short press on button ";
+			char number[16];
+			sprintf(number, "%d", (getCurrentEvent()->getId() % 10));
+			strcpy(msg, baseText);
+			strcat(msg, number);
+			Trace::out(msg);
 			eventStatus = XFEventStatus::Consumed;
 		} else if (getCurrentEvent()->getEventType() == XFEvent::Event
 				&& (getCurrentEvent()->getId() == EVENT_ID_LONG0
@@ -52,20 +63,28 @@ XFEventStatus ButtonEventsLogger::processEvent() {
 						|| getCurrentEvent()->getId() == EVENT_ID_LONG2
 						|| getCurrentEvent()->getId() == EVENT_ID_LONG3)) {
 			currentState = STATE_LONG_PRESS;
+
+			//some char* fun :-S
+			char msg[128];
+			const char * baseText =
+					"[ButtonEventsLogger] : long press on button ";
+			char number[16];
+			sprintf(number, "%d", (getCurrentEvent()->getId() % 10));
+			strcpy(msg, baseText);
+			strcat(msg, number);
+			Trace::out(msg);
 			eventStatus = XFEventStatus::Consumed;
 		}
 		break;
 	case STATE_SHORT_PRESS:
-		if (getCurrentEvent()->getEventType() == XFEvent::NullTransition
-				&& getCurrentEvent()->getId() == EVENT_ID_WAIT) {
+		if (getCurrentEvent()->getEventType() == XFEvent::NullTransition) {
 			currentState = STATE_WAIT;
 			eventStatus = XFEventStatus::Consumed;
 		}
 
 		break;
 	case STATE_LONG_PRESS:
-		if (getCurrentEvent()->getEventType() == XFEvent::NullTransition
-				&& getCurrentEvent()->getId() == EVENT_ID_WAIT) {
+		if (getCurrentEvent()->getEventType() == XFEvent::NullTransition) {
 			currentState = STATE_WAIT;
 			eventStatus = XFEventStatus::Consumed;
 		}
@@ -77,15 +96,10 @@ XFEventStatus ButtonEventsLogger::processEvent() {
 	//on entry
 	if (oldState != this->currentState) {
 		switch (currentState) {
-		case STATE_WAIT:
-			Trace::out("[ButtonEventsLogger] : state wait");
-			break;
 		case STATE_SHORT_PRESS:
-			Trace::out("[ButtonEventsLogger] : state short press");
 			pushEvent(new XFNullTransition());
 			break;
 		case STATE_LONG_PRESS:
-			Trace::out("[ButtonEventsLogger] : state long press");
 			pushEvent(new XFNullTransition());
 			break;
 		default:

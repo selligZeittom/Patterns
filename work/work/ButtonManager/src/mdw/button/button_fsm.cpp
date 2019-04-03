@@ -73,18 +73,18 @@ XFEventStatus ButtonFSM::processEvent() {
 		//on entry actions
 		switch (currentState) {
 		case STATE_INITIAL:
-			Trace::out("[buttonFsm] : state initial");
+			//Trace::out("[buttonFsm] : state initial");
 			break;
 		case STATE_WAIT:
-			Trace::out("[buttonFsm] : state wait");
+			//Trace::out("[buttonFsm] : state wait");
 			break;
 		case STATE_BTN_PRESSED:
-			Trace::out("[buttonFsm] : state btn pressed");
+			//Trace::out("[buttonFsm] : state btn pressed");
 			XFTimeoutManagerDefault::getInstance()->scheduleTimeout(
 					EVENT_ID_LONG, 1000, this);
 			break;
 		case STATE_SHORT_PRESS:
-			Trace::out("[buttonFsm] : state short press");
+			//Trace::out("[buttonFsm] : state short press");
 			XFTimeoutManagerDefault::getInstance()->unscheduleTimeout(
 					EVENT_ID_LONG, this);
 
@@ -97,7 +97,7 @@ XFEventStatus ButtonFSM::processEvent() {
 			pushEvent(new XFNullTransition());
 			break;
 		case STATE_LONG_PRESS:
-			Trace::out("[buttonFsm] : state long press");
+			//Trace::out("[buttonFsm] : state long press");
 
 			//let the handler know that the button's state changed
 			if (theHandler) {
@@ -115,7 +115,6 @@ XFEventStatus ButtonFSM::processEvent() {
 }
 
 void ButtonFSM::onBtnChanged(bool isPressed) {
-	Trace::out("[buttonFsm] : onBtnChanged()");
 	if (isPressed) {
 		pushEvent(new evButtonPressed());
 	} else {

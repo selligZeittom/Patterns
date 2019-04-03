@@ -23,7 +23,7 @@ public:
 	static ButtonEventsHandler* getInstance();
 
 	//factory patterns
-	void initRelations();
+	void initRelations(interface::ButtonEventsHandlerObserver* observer);
 
 	//method to be called
 	void onBtnChanged(uint16_t btnIndex, bool isPressed);
@@ -38,9 +38,10 @@ public:
 	void notifyButtonShortPressed(ButtonIndex buttonIndex);
 	void notifyButtonLongPressed(ButtonIndex buttonIndex);
 
+	virtual ~ButtonEventsHandler();
+
 private:
 	ButtonEventsHandler();
-	virtual ~ButtonEventsHandler();
 
 	//one fsm per button
 	ButtonFSM fsmButtons[NB_BUTTONS];

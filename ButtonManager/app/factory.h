@@ -15,6 +15,7 @@ namespace app {
 class Factory {
 public:
 	Factory();
+	~Factory();
 
 	static void initialize();           ///< Initializes the factory
 	static void build();       ///< Creates components and initializes relations

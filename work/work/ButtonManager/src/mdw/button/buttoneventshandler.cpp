@@ -61,5 +61,6 @@ ButtonEventsHandler* ButtonEventsHandler::getInstance() {
 	return theButtonEventsHandler;
 }
 
-void ButtonEventsHandler::initRelations() {
+void ButtonEventsHandler::initRelations(interface::ButtonEventsHandlerObserver* observer) {
+	subscribe(observer);
 }

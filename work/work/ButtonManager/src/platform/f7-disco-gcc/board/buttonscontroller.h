@@ -43,9 +43,10 @@ public:
 	//from the state machine class
 	virtual XFEventStatus processEvent();
 
+	virtual ~ButtonsController();
+
 private:
 	ButtonsController();
-	virtual ~ButtonsController();
 	void checkButtons();
 
 	//callback to the called
