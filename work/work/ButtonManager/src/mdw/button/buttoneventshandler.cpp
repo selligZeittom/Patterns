@@ -24,6 +24,12 @@ void ButtonEventsHandler::startStateMachines() {
 	}
 }
 
+void ButtonEventsHandler::notifyShortPress(uint8_t id) {
+}
+
+void ButtonEventsHandler::notifyLongPress(uint8_t id) {
+}
+
 ButtonEventsHandler::~ButtonEventsHandler() {
 }
 

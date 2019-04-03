@@ -28,6 +28,10 @@ public:
     //used from the factory to start the 4 fsm
     void startStateMachines();
 
+    //called from the 4 fsm
+    void notifyShortPress(uint8_t id);
+    void notifyLongPress(uint8_t id);
+
 private:
 	ButtonEventsHandler();
 	virtual ~ButtonEventsHandler();

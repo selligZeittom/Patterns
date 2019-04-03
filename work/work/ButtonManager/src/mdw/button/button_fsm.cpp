@@ -87,10 +87,24 @@ XFEventStatus ButtonFSM::processEvent() {
 			Trace::out("[buttonFsm] : state short press");
 			XFTimeoutManagerDefault::getInstance()->unscheduleTimeout(
 					EVENT_ID_LONG, this);
+
+			//let the handler know that the button's state changed
+			if (theHandler) {
+				theHandler->notifyShortPress(this->idFsm);
+			}
+
+			//back to wait state
 			pushEvent(new XFNullTransition());
 			break;
 		case STATE_LONG_PRESS:
 			Trace::out("[buttonFsm] : state long press");
+
+			//let the handler know that the button's state changed
+			if (theHandler) {
+				theHandler->notifyLongPress(this->idFsm);
+			}
+
+			//back to wait state
 			pushEvent(new XFNullTransition());
 			break;
 		default:
