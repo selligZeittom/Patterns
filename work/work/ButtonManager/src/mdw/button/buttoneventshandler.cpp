@@ -24,10 +24,19 @@ void ButtonEventsHandler::startStateMachines() {
 	}
 }
 
-void ButtonEventsHandler::notifyShortPress(uint8_t id) {
+bool ButtonEventsHandler::subscribe(
+		interface::ButtonEventsHandlerObserver* observer) {
 }
 
-void ButtonEventsHandler::notifyLongPress(uint8_t id) {
+void ButtonEventsHandler::unsubscribe(
+		interface::ButtonEventsHandlerObserver* observer) {
+}
+
+void ButtonEventsHandler::notifyButtonShortPressed(ButtonIndex buttonIndex) {
+
+}
+void ButtonEventsHandler::notifyButtonLongPressed(ButtonIndex buttonIndex) {
+
 }
 
 ButtonEventsHandler::~ButtonEventsHandler() {

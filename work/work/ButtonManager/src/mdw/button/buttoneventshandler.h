@@ -9,11 +9,14 @@
 #define BUTTON_BUTTONEVENTSHANDLER_H_
 
 #include "interface/buttonscontrollercallbackprovider.h"
+#include "interface/buttoneventshandlersubject.h"
+#include "interface/buttoneventshandlerobserver.h"
 #include "mdw/button/button_fsm.h"
 
 #define NB_BUTTONS 4
 
-class ButtonEventsHandler : public interface::ButtonsControllerCallbackProvider
+class ButtonEventsHandler: public interface::ButtonsControllerCallbackProvider,
+		public interface::ButtonEventsHandlerSubject
 
 {
 public:
@@ -22,15 +25,18 @@ public:
 	//factory patterns
 	void initRelations();
 
-    //method to be called
-    void onBtnChanged(uint16_t btnIndex, bool isPressed);
+	//method to be called
+	void onBtnChanged(uint16_t btnIndex, bool isPressed);
 
-    //used from the factory to start the 4 fsm
-    void startStateMachines();
+	//used from the factory to start the 4 fsm
+	void startStateMachines();
 
-    //called from the 4 fsm
-    void notifyShortPress(uint8_t id);
-    void notifyLongPress(uint8_t id);
+	//from interface subject
+	bool subscribe(interface::ButtonEventsHandlerObserver * observer);
+	void unsubscribe(interface::ButtonEventsHandlerObserver * observer);
+
+	void notifyButtonShortPressed(ButtonIndex buttonIndex);
+	void notifyButtonLongPressed(ButtonIndex buttonIndex);
 
 private:
 	ButtonEventsHandler();

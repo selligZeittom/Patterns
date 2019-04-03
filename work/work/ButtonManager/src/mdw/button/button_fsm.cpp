@@ -90,7 +90,7 @@ XFEventStatus ButtonFSM::processEvent() {
 
 			//let the handler know that the button's state changed
 			if (theHandler) {
-				theHandler->notifyShortPress(this->idFsm);
+				theHandler->notifyButtonShortPressed(this->idFsm);
 			}
 
 			//back to wait state
@@ -101,7 +101,7 @@ XFEventStatus ButtonFSM::processEvent() {
 
 			//let the handler know that the button's state changed
 			if (theHandler) {
-				theHandler->notifyLongPress(this->idFsm);
+				theHandler->notifyButtonLongPressed(this->idFsm);
 			}
 
 			//back to wait state
