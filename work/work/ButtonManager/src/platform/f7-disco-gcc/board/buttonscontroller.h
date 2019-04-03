@@ -43,20 +43,22 @@ public:
 	//from the state machine class
 	virtual XFEventStatus processEvent();
 
-	//callback to the called
-	void call(uint16_t index, GPIO_PinState state);
-
 private:
 	ButtonsController();
 	virtual ~ButtonsController();
 	void checkButtons();
+
+	//callback to the called
+	void call(uint16_t index, GPIO_PinState state);
 
 	//store the state of the buttons
 	uint8_t buttons[NB_BUTTONS];
 
 	//states for the state machine
 	typedef enum {
-		STATE_INITIAL = 0, STATE_WAIT = 1, STATE_DEBOUNCE = 2
+		STATE_INITIAL = 0,
+		STATE_WAIT = 1,
+		STATE_DEBOUNCE = 2
 	} STATE_CONTROLLER;
 
 	enum {
@@ -69,7 +71,7 @@ private:
 	//event to be pushed from the isr
 	evButtonIrq* evOnIrq;
 
-	//called
+	//called object and method
 	interface::ButtonsControllerCallbackProvider* called;
 	interface::ButtonsControllerCallbackProvider::CallbackMethod cbMethodPtr;
 };

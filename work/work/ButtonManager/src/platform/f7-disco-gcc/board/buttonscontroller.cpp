@@ -8,7 +8,7 @@
 #include <board/buttonscontroller.h>
 
 ButtonsController::ButtonsController() {
-	// TODO Auto-generated constructor stub
+	//buttons defined as pull-up, therefore not pressed = '1'
 	for (int i = 0; i < NB_BUTTONS; i++) {
 		buttons[i] = 1;
 	}
@@ -19,11 +19,14 @@ ButtonsController::ButtonsController() {
 }
 
 ButtonsController::~ButtonsController() {
-	// TODO Auto-generated destructor stub
+	if(evOnIrq)
+	{
+		delete evOnIrq;
+		evOnIrq = nullptr;
+	}
 }
 
 void ButtonsController::onIrq() {
-	//launch an event to go to state debounce
 	pushEvent(evOnIrq);
 }
 
@@ -98,6 +101,7 @@ XFEventStatus ButtonsController::processEvent() {
 void ButtonsController::initRelations(
 		interface::ButtonsControllerCallbackProvider* callbackProvider,
 		interface::ButtonsControllerCallbackProvider::CallbackMethod callbackMethod) {
+	//register the called "button handler" from the factory
 	registerCallback(callbackProvider, callbackMethod);
 }
 
@@ -111,12 +115,12 @@ bool ButtonsController::registerCallback(
 
 void ButtonsController::call(uint16_t index, GPIO_PinState state) {
 	bool isPressed = (state == 1); //isPresse is true if state is '1'
-	Trace::out("[ButtonsController] : callback method");
+	Trace::out("[ButtonsController] : calling the callback method");
 	(called->*cbMethodPtr)(index, isPressed); //call the method into the buttonhandler
 }
 
+//reads all the button and if there is a difference, notice it to the called
 void ButtonsController::checkButtons() {
-	Trace::out("[ButtonsController] : checkbuttons()");
 	GPIO_PinState val0 = HAL_GPIO_ReadPin(BUTTON0_GPIO_Port, BUTTON0_Pin);
 	if (buttons[0] != (uint8_t) val0) {
 		call(0, val0);
