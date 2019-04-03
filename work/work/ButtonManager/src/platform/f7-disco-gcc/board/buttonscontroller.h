@@ -17,11 +17,11 @@
 #include "mdw/trace/trace.h"
 #include "event/evbuttonirq.h"
 #include "event/events.h"
+#include "callbackenabler.h"
 
 #define NB_BUTTONS 4
 
-//interface::ButtonsControllerCallbackCaller,
-class ButtonsController: public interface::ButtonIrq, public XFBehavior {
+class ButtonsController: public interface::ButtonIrq, public XFBehavior, public interface::ButtonsControllerCallbackCaller {
 public:
 	//get the single instance
 	static ButtonsController* getInstance();
@@ -39,6 +39,9 @@ public:
 
 	//from the state machine class
 	virtual XFEventStatus processEvent();
+
+	//callback to the called
+	void call();
 
 private:
 	ButtonsController();
@@ -60,7 +63,11 @@ private:
 	//current state of the state machine
 	STATE_CONTROLLER currentState;
 
+	//event to be pushed from the isr
 	evButtonIrq* evOnIrq;
+
+	//callback enabler contains the called and the method to call
+	CallbackEnabler::CallbackElement cbElement;
 };
 
 #endif /* BOARD_BUTTONSCONTROLLER_H_ */

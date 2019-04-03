@@ -1,0 +1,2 @@
+factory build : callbackRegister() must be added
+factory init relations : some objects must maybe passed

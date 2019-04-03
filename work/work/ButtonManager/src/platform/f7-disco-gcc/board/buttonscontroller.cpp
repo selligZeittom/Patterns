@@ -99,11 +99,28 @@ void ButtonsController::initRelations() {
 bool ButtonsController::registerCallback(
 		interface::ButtonsControllerCallbackProvider* callbackProvider,
 		interface::ButtonsControllerCallbackProvider::CallbackMethod callbackMethod) {
+
+}
+
+void ButtonsController::call() {
+
 }
 
 void ButtonsController::checkButtons() {
-	HAL_GPIO_ReadPin(BUTTON0_GPIO_Port, BUTTON0_Pin);
-	HAL_GPIO_ReadPin(BUTTON1_GPIO_Port, BUTTON1_Pin);
-	HAL_GPIO_ReadPin(BUTTON2_GPIO_Port, BUTTON2_Pin);
-	HAL_GPIO_ReadPin(BUTTON3_GPIO_Port, BUTTON3_Pin);
+	GPIO_PinState val0 = HAL_GPIO_ReadPin(BUTTON0_GPIO_Port, BUTTON0_Pin);
+	if ((GPIO_PinState) (buttons[0]) != val0) {
+
+	}
+	GPIO_PinState val1 = HAL_GPIO_ReadPin(BUTTON1_GPIO_Port, BUTTON1_Pin);
+	if ((GPIO_PinState) (buttons[1]) != val1) {
+
+	}
+	GPIO_PinState val2 = HAL_GPIO_ReadPin(BUTTON2_GPIO_Port, BUTTON2_Pin);
+	if ((GPIO_PinState) (buttons[2]) != val2) {
+
+	}
+	GPIO_PinState val3 = HAL_GPIO_ReadPin(BUTTON3_GPIO_Port, BUTTON3_Pin);
+	if ((GPIO_PinState) (buttons[3]) != val3) {
+
+	}
 }
