@@ -17,11 +17,11 @@ public:
 	Factory();
 	~Factory();
 
-	static void initialize();           ///< Initializes the factory
-	static void build();       ///< Creates components and initializes relations
+	//create and build relations
+	static void initialize();
+	static void build();
 
 protected:
-	// TODO: Add static attributes here
 	static ButtonEventsLogger* theButtonEventsLogger;
 	static ButtonEventsHandler* theButtonEventsHandler; //it is a singleton
 	static ButtonsController* theButtonController; //it is a singleton

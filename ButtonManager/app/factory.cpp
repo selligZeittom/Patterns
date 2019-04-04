@@ -16,9 +16,21 @@ ButtonEventsLogger* app::Factory::theButtonEventsLogger =
 ButtonsController* app::Factory::theButtonController =
 		&(ButtonsController::getInstance());
 
+/**************************************************************************
+ * Public c++ functions
+ **************************************************************************/
+
+/*
+ * constructor
+ */
 app::Factory::Factory() {
 }
 
+/*
+ * destructor
+ * responsible to delete the object it created
+ * but also the 2 singletons from others class
+ */
 app::Factory::~Factory() {
 	if (theButtonEventsLogger) {
 		delete theButtonEventsLogger;
@@ -27,7 +39,7 @@ app::Factory::~Factory() {
 
 	/*
 	 * those 2 objects are singleton created in their getInstance()
-	 * but they're deleted here when the factory is killed
+	 * they must be deleted here
 	 */
 	if (theButtonController) {
 		delete theButtonController;
@@ -39,9 +51,17 @@ app::Factory::~Factory() {
 	}
 }
 
+/*
+ * initialize
+ */
 void app::Factory::initialize() {
 }
 
+/*
+ * building relations between objects
+ * starting reactive objects
+ * starting the dispatcher
+ */
 void app::Factory::build() {
 	theButtonController->initRelations(theButtonEventsHandler,
 			(interface::ButtonsControllerCallbackProvider::CallbackMethod) &ButtonEventsHandler::onBtnChanged);
@@ -51,9 +71,14 @@ void app::Factory::build() {
 	//start the dispatcher before launching any event
 	XFResourceFactoryDefault::getInstance()->getDefaultDispatcher()->start();
 	theButtonController->startBehavior();
-	theButtonEventsHandler->startStateMachines(); //it will call startBehavior() of the 4 fsm
+	//it will call startBehavior() of the 4 fsm inside the handler
+	theButtonEventsHandler->startStateMachines();
 	theButtonEventsLogger->startBehavior();
 }
+
+/**************************************************************************
+ * c functions, called from the main
+ **************************************************************************/
 
 void Factory_initialize() {
 	app::Factory::initialize();
