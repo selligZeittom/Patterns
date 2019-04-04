@@ -10,24 +10,42 @@
 
 #define debugMode 0
 
+/*
+ * constructor
+ */
 ButtonEventsLogger::ButtonEventsLogger() {
 	currentState = STATE_INITIAL;
 }
 
+/*
+ * destructor
+ */
 ButtonEventsLogger::~ButtonEventsLogger() {
 }
 
+/*
+ * notified by a subject
+ */
 void ButtonEventsLogger::onButtonShortPressed(ButtonIndex buttonIndex) {
 	pushEvent(new XFEvent(XFEvent::Event, buttonIndex, this));
 }
 
+/*
+ * notified by a subject
+ */
 void ButtonEventsLogger::onButtonLongPressed(ButtonIndex buttonIndex) {
 	pushEvent(new XFEvent(XFEvent::Event, buttonIndex + 10, this));
 }
 
+/*
+ * called from build() in factory
+ */
 void ButtonEventsLogger::initRelations() {
 }
 
+/*
+ * describes the behavior of the state machine
+ */
 XFEventStatus ButtonEventsLogger::processEvent() {
 	XFEventStatus eventStatus = XFEventStatus::Unknown;
 	STATE_LOGGER oldState = this->currentState;
@@ -39,40 +57,25 @@ XFEventStatus ButtonEventsLogger::processEvent() {
 			eventStatus = XFEventStatus::Consumed;
 		}
 		break;
-	case STATE_WAIT:
+	case STATE_WAIT: //waiting for an event with a press id
 		if (getCurrentEvent()->getEventType() == XFEvent::Event
 				&& (getCurrentEvent()->getId() == EVENT_ID_SHORT0
 						|| getCurrentEvent()->getId() == EVENT_ID_SHORT1
 						|| getCurrentEvent()->getId() == EVENT_ID_SHORT2
-						|| getCurrentEvent()->getId() == EVENT_ID_SHORT3)) {
+						|| getCurrentEvent()->getId() == EVENT_ID_SHORT3))
+		{
 			currentState = STATE_SHORT_PRESS;
-
-			//some char* fun :-S
-			char msg[128];
-			const char * baseText =
-					"[ButtonEventsLogger] : short press on button ";
-			char number[16];
-			sprintf(number, "%d", (getCurrentEvent()->getId() % 10));
-			strcpy(msg, baseText);
-			strcat(msg, number);
-			Trace::out(msg);
+			Trace::out("[ButtonEventsLogger] : short press on buttonId %d", (getCurrentEvent()->getId() % 10));
 			eventStatus = XFEventStatus::Consumed;
-		} else if (getCurrentEvent()->getEventType() == XFEvent::Event
+		}
+		else if (getCurrentEvent()->getEventType() == XFEvent::Event
 				&& (getCurrentEvent()->getId() == EVENT_ID_LONG0
 						|| getCurrentEvent()->getId() == EVENT_ID_LONG1
 						|| getCurrentEvent()->getId() == EVENT_ID_LONG2
-						|| getCurrentEvent()->getId() == EVENT_ID_LONG3)) {
+						|| getCurrentEvent()->getId() == EVENT_ID_LONG3))
+		{
 			currentState = STATE_LONG_PRESS;
-
-			//some char* fun :-S
-			char msg[128];
-			const char * baseText =
-					"[ButtonEventsLogger] : long press on button ";
-			char number[16];
-			sprintf(number, "%d", (getCurrentEvent()->getId() % 10));
-			strcpy(msg, baseText);
-			strcat(msg, number);
-			Trace::out(msg);
+			Trace::out("[ButtonEventsLogger] : long press on buttonId %d", (getCurrentEvent()->getId() % 10));
 			eventStatus = XFEventStatus::Consumed;
 		}
 		break;
@@ -106,6 +109,5 @@ XFEventStatus ButtonEventsLogger::processEvent() {
 			break;
 		}
 	}
-
 	return eventStatus;
 }

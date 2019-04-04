@@ -19,6 +19,7 @@ class ButtonEventsHandler: public interface::ButtonsControllerCallbackProvider,
 		public interface::ButtonEventsHandlerSubject
 {
 public:
+	//get the singleton
 	static ButtonEventsHandler* getInstance();
 
 	//factory patterns

@@ -23,14 +23,14 @@ public:
 	//factory patterns
 	void initRelations();
 
-	//from the interface
+	//from the interface observer
 	virtual void onButtonShortPressed(ButtonIndex buttonIndex);
 	virtual void onButtonLongPressed(ButtonIndex buttonIndex);
 
-	//from the state machine class
+	//from the interface XFReactive
 	virtual XFEventStatus processEvent();
 
-protected:
+private:
 
 	typedef enum {
 		STATE_INITIAL = 0,
@@ -42,11 +42,11 @@ protected:
 	/*
 	 * this allows to know which button changed with only one fsm in the logger
 	 * to create the right EVENT_ID :
-	 * 	-	add the index of the button and 0 for a short press
+	 * 	-	put the index of the button for a short press
 	 * 	-	add the index of the button and 10  for a long press
 	 *
 	 * 	now to recover the index of the button from any EVENT_ID,
-	 * 	simply do EVENT_ID % 10
+	 * 	simply do (EVENT_ID % 10)
 	 */
 	enum {
 		EVENT_ID_SHORT0 = 0,
