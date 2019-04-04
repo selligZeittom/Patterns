@@ -17,8 +17,8 @@
 #include "mdw/trace/trace.h"
 #include "event/evbuttonirq.h"
 #include "event/events.h"
+#include "config/xf-config.h"
 
-#define NB_BUTTONS 4
 
 class ButtonsController: public interface::ButtonIrq,
 		public XFBehavior,

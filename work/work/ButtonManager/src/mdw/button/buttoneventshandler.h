@@ -12,8 +12,7 @@
 #include "interface/buttoneventshandlersubject.h"
 #include "interface/buttoneventshandlerobserver.h"
 #include "mdw/button/button_fsm.h"
-
-#define NB_BUTTONS 4
+#include "config/xf-config.h"
 
 class ButtonEventsHandler: public interface::ButtonsControllerCallbackProvider,
 		public interface::ButtonEventsHandlerSubject
