@@ -27,6 +27,7 @@ void ButtonEventsHandler::startStateMachines() {
 bool ButtonEventsHandler::subscribe(
 		interface::ButtonEventsHandlerObserver* observer) {
 	observers.push_back(observer);
+	return true;
 }
 
 void ButtonEventsHandler::unsubscribe(

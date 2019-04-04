@@ -24,11 +24,8 @@ class ButtonsController: public interface::ButtonIrq,
 		public XFBehavior,
 		public interface::ButtonsControllerCallbackCaller {
 public:
-	//get the single instance
+	//get the singleton object
 	static ButtonsController& getInstance();
-
-	//from the interface ButtonIrq
-	virtual void onIrq();
 
 	//factory pattern
 	void initRelations(
@@ -40,16 +37,22 @@ public:
 			interface::ButtonsControllerCallbackProvider * callbackProvider,
 			interface::ButtonsControllerCallbackProvider::CallbackMethod callbackMethod);
 
-	//from the state machine class
+	//from the interface ButtonIrq
+	virtual void onIrq();
+
+	//Behavior of the state machine, inherited from the XFReactive interface
 	virtual XFEventStatus processEvent();
 
+	//destructor will be called from the factory
 	virtual ~ButtonsController();
 
 private:
 	ButtonsController();
+
+	//after every interrupt, the debouncer will call this method
 	void checkButtons();
 
-	//callback to the called
+	//call the callback method from the called
 	void call(uint16_t index, GPIO_PinState state);
 
 	//store the state of the buttons
@@ -57,11 +60,10 @@ private:
 
 	//states for the state machine
 	typedef enum {
-		STATE_INITIAL = 0,
-		STATE_WAIT = 1,
-		STATE_DEBOUNCE = 2
+		STATE_INITIAL = 0, STATE_WAIT = 1, STATE_DEBOUNCE = 2
 	} STATE_CONTROLLER;
 
+	//id for timeout events
 	enum {
 		EVENT_ID_DEBOUNCE = 0
 	};
@@ -69,10 +71,14 @@ private:
 	//current state of the state machine
 	STATE_CONTROLLER currentState;
 
-	//event to be pushed from the isr
+	/*
+	 * event to be pushed from the isr
+	 * must me created in the constructor and deleted in the destructor
+	 * will not be deleted after being consumed
+	 */
 	evButtonIrq* evOnIrq;
 
-	//called object and method
+	//called object and its method, callback function pattern
 	interface::ButtonsControllerCallbackProvider* called;
 	interface::ButtonsControllerCallbackProvider::CallbackMethod cbMethodPtr;
 };
