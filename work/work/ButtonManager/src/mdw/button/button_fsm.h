@@ -28,7 +28,7 @@ public:
 	//from the state machine class
 	virtual XFEventStatus processEvent();
 
-	//called by the buttoneventshandler
+	//called by theHandler
 	void onBtnChanged(bool isPressed);
 
 	//getter and setter for idFsm and theHandler
@@ -37,7 +37,6 @@ public:
 	int getId() const;
 
 private:
-
 	//states for the state machine
 	typedef enum {
 		STATE_INITIAL = 0,

@@ -17,7 +17,6 @@
 
 class ButtonEventsHandler: public interface::ButtonsControllerCallbackProvider,
 		public interface::ButtonEventsHandlerSubject
-
 {
 public:
 	static ButtonEventsHandler* getInstance();
@@ -34,7 +33,6 @@ public:
 	//from interface subject
 	bool subscribe(interface::ButtonEventsHandlerObserver * observer);
 	void unsubscribe(interface::ButtonEventsHandlerObserver * observer);
-
 	void notifyButtonShortPressed(ButtonIndex buttonIndex);
 	void notifyButtonLongPressed(ButtonIndex buttonIndex);
 
