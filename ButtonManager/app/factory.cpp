@@ -14,7 +14,7 @@ ButtonEventsHandler* app::Factory::theButtonEventsHandler =
 ButtonEventsLogger* app::Factory::theButtonEventsLogger =
 		new ButtonEventsLogger();
 ButtonsController* app::Factory::theButtonController =
-		ButtonsController::getInstance();
+		&(ButtonsController::getInstance());
 
 app::Factory::Factory() {
 }

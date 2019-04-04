@@ -30,12 +30,12 @@ void ButtonsController::onIrq() {
 	pushEvent(evOnIrq);
 }
 
-ButtonsController* ButtonsController::getInstance() {
+ButtonsController& ButtonsController::getInstance() {
 	static ButtonsController* theButtonController = nullptr;
 	if (!theButtonController) {
-		theButtonController = new ButtonsController();
+		theButtonController = new ButtonsController(); //will be destroyed by the factory
 	}
-	return theButtonController;
+	return *theButtonController;
 }
 
 XFEventStatus ButtonsController::processEvent() {

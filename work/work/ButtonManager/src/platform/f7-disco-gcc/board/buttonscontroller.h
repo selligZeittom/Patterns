@@ -25,7 +25,7 @@ class ButtonsController: public interface::ButtonIrq,
 		public interface::ButtonsControllerCallbackCaller {
 public:
 	//get the single instance
-	static ButtonsController* getInstance();
+	static ButtonsController& getInstance();
 
 	//from the interface ButtonIrq
 	virtual void onIrq();

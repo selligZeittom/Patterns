@@ -56,7 +56,7 @@ ButtonEventsHandler::~ButtonEventsHandler() {
 ButtonEventsHandler* ButtonEventsHandler::getInstance() {
 	static ButtonEventsHandler* theButtonEventsHandler = nullptr;
 	if (!theButtonEventsHandler) {
-		theButtonEventsHandler = new ButtonEventsHandler();
+		theButtonEventsHandler = new ButtonEventsHandler(); //will be destroyed by the factory
 	}
 	return theButtonEventsHandler;
 }
